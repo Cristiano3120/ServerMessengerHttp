@@ -1,0 +1,9 @@
+[03.11.2024 18:52:58]: Starting!
+[03.11.2024 18:53:07]: Accepting a client
+[03.11.2024 18:53:07]: Sending: {"code":0,"publicKey":{}}
+[03.11.2024 18:53:10]: Connected sucessfully to the server!
+[03.11.2024 18:53:11]: {"code":0,"publicKey":{}}
+[03.11.2024 18:53:11]: Received opCode ReceiveRSA
+[03.11.2024 18:53:11]: Sending: {"code":1,"key":"9Inu6wd7rvyHDxHHx0EjWpKlzRu5pV/zofm8Mj5JtfA=","iv":"TFqmSln\u002BSDbqq9f1FsmFwQ=="}
+[03.11.2024 18:53:11]: ERROR in file Client.cs, in MoveNext(), at line: 91, at column: 13
+[03.11.2024 18:53:11]: ERROR: Encrypt data with Aes
