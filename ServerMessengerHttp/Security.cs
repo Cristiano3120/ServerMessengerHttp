@@ -36,6 +36,7 @@ namespace ServerMessengerHttp
         internal static async Task SendRSAToClientAsync(WebSocket client)
         {
             _ = Logger.LogAsync("Sending the public key (RSA) to the client");
+
             var payload = new
             {
                 code = OpCode.SendClientRSA,
@@ -55,7 +56,9 @@ namespace ServerMessengerHttp
             aes.IV = root.GetProperty("iv").GetBytesFromBase64();
             if (!_clientsAes.TryAdd(client, aes))
             {
-                throw new Exception("Couldn´t add clients aes to the dict");
+                await Logger.LogAsync("Couldn´t add the client to the dict.");
+                await client.CloseAsync(WebSocketCloseStatus.InternalServerError, "The Server had an problem. Try to reconnect!", CancellationToken.None);
+                return;
             }
 
             var payload = new
@@ -89,7 +92,7 @@ namespace ServerMessengerHttp
             }
             else
             {
-                await client.CloseAsync(WebSocketCloseStatus.InvalidPayloadData, "The Aes is missing", CancellationToken.None);
+                await client.CloseAsync(WebSocketCloseStatus.InvalidPayloadData, "The Aes is missing. Try to reconnect!", CancellationToken.None);
                 return [];
             }
         }
@@ -98,7 +101,7 @@ namespace ServerMessengerHttp
 
         #region Decryption
 
-        internal static JsonElement DecryptMessage(WebSocket client, string messageToDecrypt)
+        internal static JsonElement? DecryptMessage(WebSocket client, string messageToDecrypt)
         {
             var dataAsBytes = Convert.FromBase64String(messageToDecrypt);
             try
@@ -131,28 +134,37 @@ namespace ServerMessengerHttp
             }
         }
 
-        private static JsonElement DecryptAes(WebSocket client, byte[] dataToDecrypt)
+        private static JsonElement? DecryptAes(WebSocket client, byte[] dataToDecrypt)
         {
-            if (_clientsAes.TryGetValue(client, out Aes? aes))
+            try
             {
-                using ICryptoTransform decryptor = aes.CreateDecryptor();
+                if (_clientsAes.TryGetValue(client, out Aes? aes))
                 {
-                    byte[] decryptedData;
-
-                    using var memoryStream = new MemoryStream(dataToDecrypt);
-                    using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-                    using var resultStream = new MemoryStream();
+                    using ICryptoTransform decryptor = aes.CreateDecryptor();
                     {
-                        cryptoStream.CopyTo(resultStream);
-                        decryptedData = resultStream.ToArray();
+                        byte[] decryptedData;
+
+                        using var memoryStream = new MemoryStream(dataToDecrypt);
+                        using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+                        using var resultStream = new MemoryStream();
+                        {
+                            cryptoStream.CopyTo(resultStream);
+                            decryptedData = resultStream.ToArray();
+                        }
+                        return JsonSerializer.Deserialize<JsonElement>(decryptedData);
                     }
-                    return JsonSerializer.Deserialize<JsonElement>(decryptedData);
+                }
+                else
+                {
+                    return null;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new NotImplementedException("If this happens client needs to be kicked from the Server");
+                Logger.LogException(ex);
+                return null;
             }
+            
         }
         #endregion
     }

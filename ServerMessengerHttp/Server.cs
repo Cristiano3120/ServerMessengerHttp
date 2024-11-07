@@ -49,17 +49,36 @@ namespace ServerMessengerHttp
                 {
                     WebSocketReceiveResult receivedData = await client.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
                     _ = Logger.LogAsync($"RECEIVED: The received payload is {receivedData.Count} bytes long");
+
+                    if (receivedData.CloseStatus is WebSocketCloseStatus closeStatus)
+                    {
+                        await HandleClosingMessage(closeStatus, receivedData.CloseStatusDescription!);
+                        break;
+                    }
+
                     var receivedDataAsString = Convert.ToBase64String(buffer, 0, receivedData.Count);
                     completeMessage.Append(receivedDataAsString);
-                    JsonElement message;
+                    JsonElement? message;
 
                     if (receivedData.EndOfMessage)
                     {
                         var completePayload = completeMessage.ToString();
                         completeMessage.Clear();
                         message = Security.DecryptMessage(client, completePayload);
-                        _ = Logger.LogAsync($"RECEIVED: {message}");
-                        await HandleMessageAsync(client, message.GetProperty("code").GetOpCode(), message);
+
+                        if (message is JsonElement root)
+                        {
+                            _ = Logger.LogAsync($"RECEIVED: {root}");
+                            await HandleMessageAsync(client, root.GetProperty("code").GetOpCode(), root);
+                        }
+                        else
+                        {
+                            await client.CloseAsync
+                                (WebSocketCloseStatus.InternalServerError,
+                                "The Server had an internal problem. Try to reconnect!",
+                                CancellationToken.None);
+                            break;
+                        }
                     }
                     else
                     {
@@ -74,20 +93,26 @@ namespace ServerMessengerHttp
             CleanUpClosedConnection(client);
         }
 
+        private static async Task HandleClosingMessage(WebSocketCloseStatus socketCloseStatus, string reason)
+        {
+            await Logger.LogAsync([$"The server closed the connection.", $"Close status: {socketCloseStatus}", $"Reason: {reason}"]);
+        }
+
         private static async Task HandleMessageAsync(WebSocket client, OpCode opCode, JsonElement root)
         {
-            switch(opCode)
+            switch (opCode)
             {
                 case OpCode.ReceiveAes:
                     await Security.SaveClientsAes(client, root);
-                    break; 
+                    break;
             }
         }
 
         private static void CleanUpClosedConnection(WebSocket client)
         {
             _ = Logger.LogAsync($"Lost the connection with a client");
-            client.Dispose();
+            Security._clientsAes.TryRemove(client, out _);
+            client?.Dispose();
         }
 
         internal static async Task SendPayloadAsync(WebSocket client, string payload, EncryptionMode encryptionMode = EncryptionMode.Aes)

@@ -1,20 +1,14 @@
-[07.11.2024 16:48:26]: Starting the Server.
-[07.11.2024 16:48:28]: Accepting a client
-[07.11.2024 16:48:28]: Connected sucessfully to the server!
-[07.11.2024 16:48:29]: Sending the public key (RSA) to the client
-[07.11.2024 16:48:29]: Sending(None): {"code":0,"publicKey":{},"modulus":"u9D8Cs3mAc6FThF/09ysaoDjTC29UnF/\u002BfJQTB7fBBU4emUKzAwqsVU6J8Yb\u002BA6HUUY61zphncZSbt9KOmnzA9UOOlsLt9fyw06N6Ncj1K1Ra8\u002B6bCOwE16TwGpaiXeuE135uSi4R58VNXWzKsrMyy80gDa5detcIdGSMAJPxpzIcQUcp180B3cq6vP52NuYP2TkFFT6cD/JhKCKCI7HKOZG4nkJag9XhuCwAumIOvbpUKkTlYDLkFUGig4deo4vl0wQJk4eJwNrGQoYYZQMDg\u002BgrYupGy6Ch9JFrCgBg5HkJcc2NiY3i6qRQdCC5hBTc8VUPjBj\u002BWaXlQ624f3jREBLUjjcGY0Ryz\u002BwnEtDaWyoC1RlpDRpM37B9pp5LVGGhGoJvZnLzlj7YJB0ppW1pmTKWJShQlhyBplhWRmFy5H\u002Bw0CuWBf145Sbv2b/fLaruPwZLQ\u002B11NbnoR9IGwXsNd4/k3E2V4NOq51cDeDGzbbkUpWZgHZZEA\u002Bdx9RmvsfvW13DQMwQze088hB3/3c077HGcWwQw8fmwen84xdAqufdxt6iQyeTAdoIDo8JXH4W3hJ3U1WHyr2JVU0Ul0MmtW2foNAiaWQYjNi0pKuLIiajG7mrdO0nfDYMxsjeVt3fozae8AHAQgrAVsv1le2Qepthdw3dnHU61DV7luL9Y8U=","exponent":"AQAB"}
-[07.11.2024 16:48:29]: RECEIVED: The received payload is 785 bytes long
-[07.11.2024 16:48:29]: RECEIVED: {"code":0,"publicKey":{},"modulus":"u9D8Cs3mAc6FThF/09ysaoDjTC29UnF/\u002BfJQTB7fBBU4emUKzAwqsVU6J8Yb\u002BA6HUUY61zphncZSbt9KOmnzA9UOOlsLt9fyw06N6Ncj1K1Ra8\u002B6bCOwE16TwGpaiXeuE135uSi4R58VNXWzKsrMyy80gDa5detcIdGSMAJPxpzIcQUcp180B3cq6vP52NuYP2TkFFT6cD/JhKCKCI7HKOZG4nkJag9XhuCwAumIOvbpUKkTlYDLkFUGig4deo4vl0wQJk4eJwNrGQoYYZQMDg\u002BgrYupGy6Ch9JFrCgBg5HkJcc2NiY3i6qRQdCC5hBTc8VUPjBj\u002BWaXlQ624f3jREBLUjjcGY0Ryz\u002BwnEtDaWyoC1RlpDRpM37B9pp5LVGGhGoJvZnLzlj7YJB0ppW1pmTKWJShQlhyBplhWRmFy5H\u002Bw0CuWBf145Sbv2b/fLaruPwZLQ\u002B11NbnoR9IGwXsNd4/k3E2V4NOq51cDeDGzbbkUpWZgHZZEA\u002Bdx9RmvsfvW13DQMwQze088hB3/3c077HGcWwQw8fmwen84xdAqufdxt6iQyeTAdoIDo8JXH4W3hJ3U1WHyr2JVU0Ul0MmtW2foNAiaWQYjNi0pKuLIiajG7mrdO0nfDYMxsjeVt3fozae8AHAQgrAVsv1le2Qepthdw3dnHU61DV7luL9Y8U=","exponent":"AQAB"}
-[07.11.2024 16:48:29]: RECEIVED: Received opCode ReceiveRSA
-[07.11.2024 16:48:29]: Sending aes
-[07.11.2024 16:48:29]: SENDING(RSA): {"code":1,"key":"5QLJbqwwC53jNG42Rc\u002BsZ2n/Wv/qYQoO2GVU/xrdoBw=","iv":"uWEMagQxcJywzCWYOxTQjw=="}
-[07.11.2024 16:48:29]: The received payload is 512 bytes long
-[07.11.2024 16:48:29]: {"code":1,"key":"5QLJbqwwC53jNG42Rc\u002BsZ2n/Wv/qYQoO2GVU/xrdoBw=","iv":"uWEMagQxcJywzCWYOxTQjw=="}
-[07.11.2024 16:48:29]: Received the aes from the client
-[07.11.2024 16:48:29]: Sending(Aes): {"code":2}
-[07.11.2024 16:48:29]: RECEIVED: The received payload is 16 bytes long
-[07.11.2024 16:48:29]: RECEIVED: {"code":2}
-[07.11.2024 16:48:29]: RECEIVED: Received opCode ServerReadyToReceive
-[07.11.2024 16:48:46]: ERROR in file Server.cs, in MoveNext(), at line: 50, at column: 21
-[07.11.2024 16:48:46]: ERROR: An internal WebSocket error occurred. Please see the innerException, if present, for more details. 
-[07.11.2024 16:48:46]: Lost the connection with a client
+[07.11.2024 17:35:43]: Starting!
+[07.11.2024 17:35:43]: Accepting a client
+[07.11.2024 17:35:43]: Sending the public key (RSA) to the client
+[07.11.2024 17:35:43]: SENDING(None): {"code":0,"publicKey":{},"modulus":"ywmuIPBKLo4H0tKUBuJPdilzS6YaAKJ48lvMX56M06TT8qro7YOG6hvYpaw8CuJTJudoneKLVmUsxvGz8cO8ZBPUdN0ke7rYPII3IYDhNjvK0V8EhbrtbH5sWowlL483BRW09KIJPPKUfRy743lpXAyTf33Y1ulEJtPaVEolOM\u002BN7dINGWdISh5iZVSyZwxuEzQ4BK42pa4ii/NM\u002BPhPBVc\u002BplpTNsosKHhWgjPipJlyn4V680tQqQMEUyLL5DPa1i8XQlfoeHQP2YDpoA9OGv8B5uJOL9pIBAqw/r2oDCx4lgX4HUzk41r5IysblAbD/oFQr8qhznnZgvlwl5WYG/zpgsi1MH72PlSagpY2FArihmToRt9\u002B1OBfL/UqgnvAyyZYwE4odncfbVWukA/KNsftSRc8OslgIx3krgzf4Em50aDIU5HzqHdU2STrOyplG\u002BxGU4K2E72H/7BVevr2GZgLczF0qqQhRyGyXKLQn2DIowgPP07EnycIA5TVKEwVitpI0Plu53\u002Bw4nWiE6\u002B1pN5jefoNYiA9a14C4MbU\u002BoU5pBKx09wI2qwF5fqPcx1bivNkP3zUElIK7Is2yaQZNe5gxzy0s8/tl0MyXDxa5tDPljXKwnAY1w75AmkTZrP1jZsnJn5\u002B3eKpt0kBz/jlv7Ss/6Asc/iOizFn0rfc9K0=","exponent":"AQAB"}
+[07.11.2024 17:35:43]: Connected sucessfully to the server!
+[07.11.2024 17:35:43]: RECEIVED: The received payload is 785 bytes long
+[07.11.2024 17:35:43]: RECEIVED: {"code":0,"publicKey":{},"modulus":"ywmuIPBKLo4H0tKUBuJPdilzS6YaAKJ48lvMX56M06TT8qro7YOG6hvYpaw8CuJTJudoneKLVmUsxvGz8cO8ZBPUdN0ke7rYPII3IYDhNjvK0V8EhbrtbH5sWowlL483BRW09KIJPPKUfRy743lpXAyTf33Y1ulEJtPaVEolOM\u002BN7dINGWdISh5iZVSyZwxuEzQ4BK42pa4ii/NM\u002BPhPBVc\u002BplpTNsosKHhWgjPipJlyn4V680tQqQMEUyLL5DPa1i8XQlfoeHQP2YDpoA9OGv8B5uJOL9pIBAqw/r2oDCx4lgX4HUzk41r5IysblAbD/oFQr8qhznnZgvlwl5WYG/zpgsi1MH72PlSagpY2FArihmToRt9\u002B1OBfL/UqgnvAyyZYwE4odncfbVWukA/KNsftSRc8OslgIx3krgzf4Em50aDIU5HzqHdU2STrOyplG\u002BxGU4K2E72H/7BVevr2GZgLczF0qqQhRyGyXKLQn2DIowgPP07EnycIA5TVKEwVitpI0Plu53\u002Bw4nWiE6\u002B1pN5jefoNYiA9a14C4MbU\u002BoU5pBKx09wI2qwF5fqPcx1bivNkP3zUElIK7Is2yaQZNe5gxzy0s8/tl0MyXDxa5tDPljXKwnAY1w75AmkTZrP1jZsnJn5\u002B3eKpt0kBz/jlv7Ss/6Asc/iOizFn0rfc9K0=","exponent":"AQAB"}
+[07.11.2024 17:35:43]: RECEIVED: Received opCode ReceiveRSA
+[07.11.2024 17:35:43]: Sending aes
+[07.11.2024 17:35:44]: ERROR in file Client.cs, in MoveNext(), at line: 140, at column: 13
+[07.11.2024 17:35:44]: ERROR: Exception of type 'System.Exception' was thrown.
+[07.11.2024 17:35:52]: ERROR in file Server.cs, in MoveNext(), at line: 50, at column: 21
+[07.11.2024 17:35:52]: ERROR: An internal WebSocket error occurred. Please see the innerException, if present, for more details. 
+[07.11.2024 17:35:52]: Lost the connection with a client
