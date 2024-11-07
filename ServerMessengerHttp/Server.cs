@@ -10,10 +10,10 @@ namespace ServerMessengerHttp
         internal static void StartServer()
         {
             _ = Logger.LogAsync($"Starting the Server.");
-            Task.Run(AcceptClients);
+            Task.Run(AcceptClientsAsync);
         }
 
-        internal static async Task AcceptClients()
+        internal static async Task AcceptClientsAsync()
         {
             HttpListener listener = new();
             listener.Prefixes.Add("http://127.0.0.1:5000/");
@@ -28,8 +28,8 @@ namespace ServerMessengerHttp
                     HttpListenerWebSocketContext webSocketContext = await context.AcceptWebSocketAsync(null);
                     WebSocket client = webSocketContext.WebSocket;
 
-                    _ = Task.Run(() => HandleClient(client));
-                    await Security.SendRSAToClient(client);
+                    _ = Task.Run(() => HandleClientAsync(client));
+                    await Security.SendRSAToClientAsync(client);
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace ServerMessengerHttp
             }
         }
 
-        internal static async Task HandleClient(WebSocket client)
+        internal static async Task HandleClientAsync(WebSocket client)
         {
             var buffer = new byte[65536];
             CancellationToken cancellationToken = new CancellationTokenSource().Token;
@@ -48,17 +48,18 @@ namespace ServerMessengerHttp
                 try
                 {
                     WebSocketReceiveResult receivedData = await client.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
-                    Console.WriteLine(receivedData.Count);
-                    var receivedDataAsString = Encoding.UTF8.GetString(buffer, 0, receivedData.Count);
+                    _ = Logger.LogAsync($"RECEIVED: The received payload is {receivedData.Count} bytes long");
+                    var receivedDataAsString = Convert.ToBase64String(buffer, 0, receivedData.Count);
                     completeMessage.Append(receivedDataAsString);
                     JsonElement message;
 
                     if (receivedData.EndOfMessage)
                     {
-                        message = JsonDocument.Parse(completeMessage.ToString()).RootElement;
-                        _ = Logger.LogAsync(message.ToString());
+                        var completePayload = completeMessage.ToString();
                         completeMessage.Clear();
-                        HandleMessage(message.GetOpCode(), message);
+                        message = Security.DecryptMessage(client, completePayload);
+                        _ = Logger.LogAsync($"RECEIVED: {message}");
+                        await HandleMessageAsync(client, message.GetProperty("code").GetOpCode(), message);
                     }
                     else
                     {
@@ -70,35 +71,63 @@ namespace ServerMessengerHttp
                     Logger.LogException(ex);
                 }
             }
-            CloseConnectionToClient(client);
+            CleanUpClosedConnection(client);
         }
 
-        private static void HandleMessage(OpCode opCode, JsonElement root)
+        private static async Task HandleMessageAsync(WebSocket client, OpCode opCode, JsonElement root)
         {
-
+            switch(opCode)
+            {
+                case OpCode.ReceiveAes:
+                    await Security.SaveClientsAes(client, root);
+                    break; 
+            }
         }
 
-        private static void CloseConnectionToClient(WebSocket client)
+        private static void CleanUpClosedConnection(WebSocket client)
         {
             _ = Logger.LogAsync($"Lost the connection with a client");
             client.Dispose();
         }
 
-        internal static async Task SendPayloadAsync(WebSocket client, string payload, EncryptionMode encryptionMode = EncryptionMode.Aes, bool endOfMessage = true)
+        internal static async Task SendPayloadAsync(WebSocket client, string payload, EncryptionMode encryptionMode = EncryptionMode.Aes)
         {
-            _ = Logger.LogAsync($"Sending: {payload}");
+            _ = Logger.LogAsync($"SENDING({encryptionMode}): {payload}");
             ArgumentNullException.ThrowIfNull(payload);
             if (client.State != WebSocketState.Open)
             {
-                CloseConnectionToClient(client);
+                CleanUpClosedConnection(client);
                 return;
             }
 
             var buffer = encryptionMode == EncryptionMode.None
                 ? Encoding.UTF8.GetBytes(payload)
-                : throw new NotImplementedException("Encrypt data with Aes");
+                : await Security.EncryptAes(client, payload);
 
-            await client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, endOfMessage, CancellationToken.None);
+            if (buffer.Length == 0)
+            {
+                CleanUpClosedConnection(client);
+                return;
+            }
+
+            var bufferLengthOfClient = 65536;
+            var parts = (int)Math.Ceiling((double)buffer.Length / bufferLengthOfClient);
+
+            if (parts > 1)
+            {
+                var partedBuffer = buffer.Chunk(bufferLengthOfClient).ToArray();
+                for (var i = 0; i < partedBuffer.Length; i++)
+                {
+                    var item = partedBuffer[i];
+                    var endOfMessage = i == partedBuffer.Length - 1;
+
+                    await client.SendAsync(new ArraySegment<byte>(item), WebSocketMessageType.Binary, endOfMessage, CancellationToken.None);
+                }
+            }
+            else
+            {
+                await client.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, true, CancellationToken.None);
+            }
         }
     }
 }
