@@ -8,7 +8,6 @@ namespace ServerMessengerHttp
         private static readonly ConcurrentQueue<string> _loggingQueue;
         private const string _pathToLoggingFile = @"C:\Users\Crist\source\repos\ServerMessengerHttp\ServerMessengerHttp\NeededFiles\LoggingFile.txt";
 
-
         static Logger()
         {
             _loggingQueue = new ConcurrentQueue<string>();
@@ -30,6 +29,10 @@ namespace ServerMessengerHttp
                 Console.WriteLine(formatedLog);
                 _loggingQueue.Enqueue(formatedLog);
             }
+            //Creating a empty line for better readability
+            Console.WriteLine("");
+            _loggingQueue.Enqueue("");
+
             try
             {
                 using StreamWriter streamWriter = new(path: _pathToLoggingFile, append: true);

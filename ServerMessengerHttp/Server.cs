@@ -10,7 +10,14 @@ namespace ServerMessengerHttp
         internal static void StartServer()
         {
             _ = Logger.LogAsync($"Starting the Server.");
+            UserDatabase.Init();
             Task.Run(AcceptClientsAsync);
+        }
+
+        internal static void StopServer(string errorMessage)
+        {
+            _ = Logger.LogAsync("Stopping the server");
+            throw new Exception(errorMessage);
         }
 
         internal static async Task AcceptClientsAsync()
@@ -105,6 +112,12 @@ namespace ServerMessengerHttp
                 case OpCode.ReceiveAes:
                     await Security.SaveClientsAes(client, root);
                     break;
+                case OpCode.ReceiveRequestToCreateAcc:
+                    await HandleClientMessages.HandleCreateAccountRequest(client, root);
+                        break;
+                case OpCode.VerificationProcess:
+                    await HandleClientMessages.VerificationProcess(client, root);
+                    break;
             }
         }
 
@@ -112,6 +125,7 @@ namespace ServerMessengerHttp
         {
             _ = Logger.LogAsync($"Lost the connection with a client");
             Security._clientsAes.TryRemove(client, out _);
+            UserDatabase._usersTryingToCreateAcc.TryRemove(client, out _);
             client?.Dispose();
         }
 

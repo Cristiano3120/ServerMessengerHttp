@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -19,16 +20,13 @@ namespace ServerMessengerHttp
             {
                 try
                 {
+                    rsa.PersistKeyInCsp = false;
                     _publicKey = rsa.ExportParameters(false);
                     _privateKey = rsa.ExportParameters(true);
                 }
                 catch (Exception ex)
                 {
                     Logger.LogException(ex);
-                }
-                finally
-                {
-                    rsa.PersistKeyInCsp = false;
                 }
             }
         }
@@ -75,20 +73,17 @@ namespace ServerMessengerHttp
         {
             if (_clientsAes.TryGetValue(client, out Aes? aes))
             {
-                using (aes)
+                ICryptoTransform encryptor = aes.CreateEncryptor();
+
+                using var ms = new MemoryStream();
+                using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                using (var sw = new StreamWriter(cs))
                 {
-                    ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
-                    using var ms = new MemoryStream();
-                    using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                    using (var sw = new StreamWriter(cs))
-                    {
-                        sw.Write(dataToEncrypt);
-                        sw.Flush();
-                    }
-
-                    return ms.ToArray();
+                    sw.Write(dataToEncrypt);
+                    sw.Flush();
                 }
+
+                return ms.ToArray();
             }
             else
             {
@@ -123,8 +118,6 @@ namespace ServerMessengerHttp
 
         private static JsonElement DecryptRSA(byte[] dataToDecrypt)
         {
-            ArgumentNullException.ThrowIfNull(_privateKey);
-
             using var rsa = RSA.Create();
             {
                 rsa.ImportParameters(_privateKey);
@@ -141,31 +134,26 @@ namespace ServerMessengerHttp
                 if (_clientsAes.TryGetValue(client, out Aes? aes))
                 {
                     using ICryptoTransform decryptor = aes.CreateDecryptor();
-                    {
-                        byte[] decryptedData;
 
-                        using var memoryStream = new MemoryStream(dataToDecrypt);
-                        using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-                        using var resultStream = new MemoryStream();
-                        {
-                            cryptoStream.CopyTo(resultStream);
-                            decryptedData = resultStream.ToArray();
-                        }
-                        return JsonSerializer.Deserialize<JsonElement>(decryptedData);
-                    }
+                    using var memoryStream = new MemoryStream(dataToDecrypt);
+                    using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+                    using var resultStream = new MemoryStream();
+
+                    cryptoStream.CopyTo(resultStream);
+                    var decryptedData = resultStream.ToArray();
+
+                    return JsonSerializer.Deserialize<JsonElement>(decryptedData);
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex);
                 return null;
             }
-            
         }
+
+
         #endregion
     }
 }
