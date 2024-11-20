@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
+using ZstdNet;
 
 namespace ServerMessengerHttp
 {
@@ -67,9 +66,35 @@ namespace ServerMessengerHttp
             await Server.SendPayloadAsync(client, jsonString);
         }
 
+        #region Compression/Decompression
+
+        internal static byte[] CompressData(byte[] data)
+        {
+            using var compressor = new Compressor(new CompressionOptions(1));
+            var compressedData = compressor.Wrap(data);
+            return compressedData.Length >= data.Length
+                ? data
+                : compressedData;
+        }
+
+        internal static byte[] DecompressData(byte[] data)
+        {
+            try
+            {
+                using var decompressor = new Decompressor();
+                return decompressor.Unwrap(data);
+            }
+            catch (Exception)
+            {
+                return data;
+            }
+        }
+
+        #endregion
+
         #region Encryption
 
-        internal static async Task<byte[]> EncryptAes(WebSocket client, string dataToEncrypt)
+        internal static async Task<byte[]> EncryptAes(WebSocket client, byte[] dataToEncrypt)
         {
             if (_clientsAes.TryGetValue(client, out Aes? aes))
             {
@@ -77,20 +102,20 @@ namespace ServerMessengerHttp
 
                 using var ms = new MemoryStream();
                 using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
-                using (var sw = new StreamWriter(cs))
                 {
-                    sw.Write(dataToEncrypt);
-                    sw.Flush();
+                    await cs.WriteAsync(dataToEncrypt);
+                    await cs.FlushAsync();
                 }
 
                 return ms.ToArray();
             }
             else
             {
-                await client.CloseAsync(WebSocketCloseStatus.InvalidPayloadData, "The Aes is missing. Try to reconnect!", CancellationToken.None);
-                return [];
+                await client.CloseAsync(WebSocketCloseStatus.InvalidPayloadData, "The AES key is missing. Try to reconnect!", CancellationToken.None);
+                return Array.Empty<byte>();
             }
         }
+
 
         #endregion
 
@@ -101,7 +126,8 @@ namespace ServerMessengerHttp
             var dataAsBytes = Convert.FromBase64String(messageToDecrypt);
             try
             {
-                return JsonDocument.Parse(dataAsBytes).RootElement;
+                var decompressedData = DecompressData(dataAsBytes);
+                return JsonDocument.Parse(decompressedData).RootElement;
             }
             catch (Exception)
             {
@@ -122,8 +148,8 @@ namespace ServerMessengerHttp
             {
                 rsa.ImportParameters(_privateKey);
                 var decryptedBytes = rsa.Decrypt(dataToDecrypt, RSAEncryptionPadding.Pkcs1);
-                var decryptedString = Encoding.UTF8.GetString(decryptedBytes);
-                return JsonDocument.Parse(decryptedString).RootElement;
+                var decompressedData = DecompressData(decryptedBytes);
+                return JsonDocument.Parse(decompressedData).RootElement;
             }
         }
 
@@ -141,8 +167,9 @@ namespace ServerMessengerHttp
 
                     cryptoStream.CopyTo(resultStream);
                     var decryptedData = resultStream.ToArray();
+                    var decompressedData = DecompressData(decryptedData);
 
-                    return JsonSerializer.Deserialize<JsonElement>(decryptedData);
+                    return JsonSerializer.Deserialize<JsonElement>(decompressedData);
                 }
                 return null;
             }

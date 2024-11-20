@@ -7,7 +7,7 @@ namespace ServerMessengerHttp
 {
     internal static class HandleClientMessages
     {
-        private static readonly string _emailAppPaswword = string.Empty;
+        private static readonly string _emailAppPaswword;
 
         static HandleClientMessages()
         {
@@ -86,6 +86,16 @@ namespace ServerMessengerHttp
                     code = OpCode.VerificationResult,
                     sucessful = false,
                     error = "Wrong verification code",
+                });
+                return;
+            }
+
+            if (!await UserDatabase.PutUserIntoDb(userInfo.user))
+            {
+                await SendResponseAsync(client, new
+                {
+                    code = OpCode.UnexpectedError,
+                    error = UnexpectedError.FailedToPutUserIntoDb,
                 });
                 return;
             }

@@ -65,7 +65,7 @@ namespace ServerMessengerHttp
             return Convert.ToBase64String(msEncrypt.ToArray());
         }
 
-        private static string DecryptDataAES(byte[] data)
+        private static string DecryptDataAESDatabase(byte[] data)
         {
             using ICryptoTransform decryptor = _aes.CreateDecryptor();
 

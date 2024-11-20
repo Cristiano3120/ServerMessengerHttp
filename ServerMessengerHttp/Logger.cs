@@ -36,7 +36,6 @@ namespace ServerMessengerHttp
             try
             {
                 using StreamWriter streamWriter = new(path: _pathToLoggingFile, append: true);
-
                 foreach (var item in _loggingQueue)
                 {
                     await streamWriter.WriteLineAsync(item);

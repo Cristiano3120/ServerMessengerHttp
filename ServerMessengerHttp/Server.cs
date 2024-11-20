@@ -55,7 +55,7 @@ namespace ServerMessengerHttp
                 try
                 {
                     WebSocketReceiveResult receivedData = await client.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
-                    _ = Logger.LogAsync($"RECEIVED: The received payload is {receivedData.Count} bytes long");
+                    _ = Logger.LogAsync($"[RECEIVED]: The received payload is {receivedData.Count} bytes long");
 
                     if (receivedData.CloseStatus is WebSocketCloseStatus closeStatus)
                     {
@@ -75,7 +75,7 @@ namespace ServerMessengerHttp
 
                         if (message is JsonElement root)
                         {
-                            _ = Logger.LogAsync($"RECEIVED: {root}");
+                            _ = Logger.LogAsync($"[RECEIVED]: {root}");
                             await HandleMessageAsync(client, root.GetProperty("code").GetOpCode(), root);
                         }
                         else
@@ -131,7 +131,7 @@ namespace ServerMessengerHttp
 
         internal static async Task SendPayloadAsync(WebSocket client, string payload, EncryptionMode encryptionMode = EncryptionMode.Aes)
         {
-            _ = Logger.LogAsync($"SENDING({encryptionMode}): {payload}");
+            _ = Logger.LogAsync($"[SENDING({encryptionMode})]: {payload}");
             ArgumentNullException.ThrowIfNull(payload);
             if (client.State != WebSocketState.Open)
             {
@@ -139,9 +139,12 @@ namespace ServerMessengerHttp
                 return;
             }
 
-            var buffer = encryptionMode == EncryptionMode.None
-                ? Encoding.UTF8.GetBytes(payload)
-                : await Security.EncryptAes(client, payload);
+            var compressedBuffer = Security.CompressData(Encoding.UTF8.GetBytes(payload));
+
+            var buffer = encryptionMode == EncryptionMode.Aes
+                ? await Security.EncryptAes(client, compressedBuffer)
+                : compressedBuffer;
+
 
             if (buffer.Length == 0)
             {
