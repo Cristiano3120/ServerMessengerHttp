@@ -68,6 +68,10 @@ namespace ServerMessengerHttp
 
         #region Compression/Decompression
 
+        /// <summary>
+        /// <c>IF</c> the compress data is smaller than the original data: <c>returns</c> compressed data
+        /// <c>ELSE returns</c> the original data
+        /// </summary>
         internal static byte[] CompressData(byte[] data)
         {
             using var compressor = new Compressor(new CompressionOptions(1));

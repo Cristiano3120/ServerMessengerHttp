@@ -4,13 +4,15 @@ namespace ServerMessengerHttp
 {
     internal enum OpCode : byte
     {
-        SendClientRSA = 0,
-        ReceiveAes = 1,
-        ReadyToReceive = 2,
-        ReceiveRequestToCreateAcc = 3,
-        ResponseRequestToCreateAcc = 4,
-        VerificationProcess = 5,
-        VerificationResult = 6,
-        UnexpectedError = 7,
+        UnexpectedError = 0,
+        SendClientRSA = 1,
+        ReceiveAes = 2,
+        ReadyToReceive = 3,
+        ReceiveRequestToCreateAcc = 4,
+        ResponseRequestToCreateAcc = 5,
+        VerificationProcess = 6,
+        VerificationResult = 7,
+        RequestToLogin = 8,
+        ResponseToLogin = 9,
     }
 }

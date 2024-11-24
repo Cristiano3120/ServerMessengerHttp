@@ -41,7 +41,7 @@ namespace ServerMessengerHttp
                 var payload = new
                 {
                     code = OpCode.ResponseRequestToCreateAcc,
-                    succesful = false,
+                    successful = false,
                     email = userWithSameEmailOrAndUsername?.Email == user.Email || emailInUse,
                     username = userWithSameEmailOrAndUsername?.Username == user.Username || usernameInUse,
                 };
@@ -55,8 +55,9 @@ namespace ServerMessengerHttp
                 var payload = new
                 {
                     code = OpCode.ResponseRequestToCreateAcc,
-                    sucessful = true,
+                    successful = true,
                     email = user.Email,
+                    password = user.Password,
                 };
                 jsonString = JsonSerializer.Serialize(payload);
             }
@@ -84,7 +85,7 @@ namespace ServerMessengerHttp
                 await SendResponseAsync(client, new
                 {
                     code = OpCode.VerificationResult,
-                    sucessful = false,
+                    successful = false,
                     error = "Wrong verification code",
                 });
                 return;
@@ -105,6 +106,22 @@ namespace ServerMessengerHttp
                 code = OpCode.VerificationResult,
                 successful = true,
             });
+        }
+
+        internal static async Task HandleLogin(WebSocket client, JsonElement root)
+        {
+            var email = root.GetProperty("email").GetString();
+            var password = root.GetProperty("password").GetString();
+
+            (var successful, User? user) = await UserDatabase.IsCorrectLoginData(email!, password!);
+            var paylaod = new
+            {
+                code = OpCode.ResponseToLogin,
+                successful,
+                user,
+            };
+            var jsonString = JsonSerializer.Serialize(paylaod);
+            await Server.SendPayloadAsync(client, jsonString);
         }
 
         private static void SendEmail(User user, int verificationCode)

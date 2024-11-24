@@ -2,6 +2,8 @@
 {
     internal class User
     {
+        internal long Id { get; set; }
+        internal byte[] ProfilPic { get; set; } = [];
         internal DateOnly BirthDate { get; set; }
         internal string Username { get; set; } = string.Empty;
         internal string Email { get; set; } = string.Empty;

@@ -55,7 +55,7 @@ namespace ServerMessengerHttp
                 try
                 {
                     WebSocketReceiveResult receivedData = await client.ReceiveAsync(new ArraySegment<byte>(buffer), cancellationToken);
-                    _ = Logger.LogAsync($"[RECEIVED]: The received payload is {receivedData.Count} bytes long");
+                    _ = Logger.LogAsync(ConsoleColor.Yellow, $"[RECEIVED]: The received payload is {receivedData.Count} bytes long");
 
                     if (receivedData.CloseStatus is WebSocketCloseStatus closeStatus)
                     {
@@ -75,7 +75,7 @@ namespace ServerMessengerHttp
 
                         if (message is JsonElement root)
                         {
-                            _ = Logger.LogAsync($"[RECEIVED]: {root}");
+                            _ = Logger.LogAsync(ConsoleColor.Magenta, $"[RECEIVED]: {root}");
                             await HandleMessageAsync(client, root.GetProperty("code").GetOpCode(), root);
                         }
                         else
@@ -118,6 +118,9 @@ namespace ServerMessengerHttp
                 case OpCode.VerificationProcess:
                     await HandleClientMessages.VerificationProcess(client, root);
                     break;
+                case OpCode.RequestToLogin:
+                    await HandleClientMessages.HandleLogin(client, root);
+                    break;
             }
         }
 
@@ -131,7 +134,7 @@ namespace ServerMessengerHttp
 
         internal static async Task SendPayloadAsync(WebSocket client, string payload, EncryptionMode encryptionMode = EncryptionMode.Aes)
         {
-            _ = Logger.LogAsync($"[SENDING({encryptionMode})]: {payload}");
+            _ = Logger.LogAsync(ConsoleColor.Blue, $"[SENDING({encryptionMode})]: {payload}");
             ArgumentNullException.ThrowIfNull(payload);
             if (client.State != WebSocketState.Open)
             {

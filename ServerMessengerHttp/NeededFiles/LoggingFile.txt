@@ -1,39 +1,53 @@
-[19.11.2024 21:50:57]: Starting!
+[24.11.2024 13:51:12]: Starting!
 
-[19.11.2024 21:50:58]: Accepting a client
+[24.11.2024 13:51:12]: Accepting a client
 
-[19.11.2024 21:50:58]: Connected sucessfully to the server!
+[24.11.2024 13:51:12]: Sending the public key (RSA) to the client
 
-[19.11.2024 21:50:58]: Sending the public key (RSA) to the client
+[24.11.2024 13:51:12]: [SENDING(None)]: {"code":1,"publicKey":{},"modulus":"rYNyKxtj\u002BtALsTXI4zelJtQisRNgjuJdrn\u002BSL70T5aNfAUt0zS73SgzX/wZ3GpEhdaFOlRxEAiKmnGCetoyoNh3KMiAA/tpSK4T3FPko5wKGZLSxrbD44c6ETCOVsw3hI69I30cfSUpklyDUasgZCZZVy3QKKZSUQZwbNwEA\u002B4mIrpuUsZCL7ktNkDPqWfcUJHnQ7gK\u002BDqYo/DjkdHEWi/b6EVAmOd1K5MuV39ckhKFXB27QKw0Za35NF2eh4xyhQDOk3ngsc2mXWwBhH/CIr0ASQY7kyKSlptElwsKQllwQ/xiz4bzGTrgYsCXjMJsY/v4aDSvS6MI2hJDwPxXLyyzhfGO73yjnDVeXQEM2xMInv4c4s8Ck7ylN3xMCTIR0WTlVGA2nB95UXHP/WiqdYKnkLfZfDyKGdw\u002Bdmv0UJUnQih\u002BfuGYU5x0qKcjkWb3/sZKIrY5tAa9lGwuTsL9QiDQdtS4QwbFgoNYVmKXQomKqG7yUz0AX\u002Byv4z9cPbVHc/NMELnAPDJgOts8Pu\u002Bn5hXhxbkukGaj0A1V0\u002BmD2wTZNHazpNBpJSfDwdyXK/3HEpamamIovzv9Xy9wlAIivP6WWBQNdL\u002B9MibiHNvHIlLAbkrVR\u002BW67VvPC2idOEbbP0EtraBs8Q6ilW/SK5SEXXOf6uSjPFqTY80bv\u002BuPQzZE=","exponent":"AQAB"}
 
-[19.11.2024 21:50:58]: SENDING(None): {"code":0,"publicKey":{},"modulus":"5ChBfwg9QA44ZYNip137i/bvHbB0H25f4KmRJ9qmW1yGMdtetRB1ASfLVOJabblmMmAZEieBb78kZBkuOvM0euXVCaHCWVuoNCC9MhwIGfVgK3tknfSzZguJ755AYvTRa2OsNBplHR1AM0Hw7MolAHnHglkfpBe5M9xkvA\u002Bo0f6ujgINCeXTqHNywEdksmEK/qGhJyLcwp/x3qHgAd5Arb1D\u002B37YE1LGbCZ2eycTVhGQHnUQuiDPu4b5M9UUA3oXUwcgF5Cn6BWcVnlatyvx6gbJXrYe3h7lIruf2JO99o9iWN3HhkeskhC\u002B0bJ70C5vwQAbZyYV8NiBXfL3xRRtjKEf6m6ynVa/HlE4q4qd0cZXuPx7MVKDwARqrVG7OlXuSqT7GnLpTzm46ctaGJeSzsc6dqEa9cgqCaSwuko8zk87kL\u002BXr3oihzGjusvC7nVcr0QWQzt7Ee5ZNKERihOCxuze80RYzR7EFdWZ6OY9YNvtp7EudFQXQ8RB5p/pHa/WjTH4SCjtsYMCYWm53/oZj6cewdmHfWpDyY4mLG\u002BV3iIDQOJSxkT\u002BYXn2wTKWiDhTdkYwgB5KNWfVfcF\u002B4Z33d8d5n3IgjiX6SHDmeEl/I7xbCBLTUSufvN5FZiqCnzK3hk5jhkp494/J4kOUPWreHD3\u002BRFBekhQ3gqcKVNULXrE=","exponent":"AQAB"}
+[24.11.2024 13:51:12]: Connected successfully to the server!
 
-[19.11.2024 21:50:58]: RECEIVED: The received payload is 634 bytes long
+[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 636 bytes long
 
-[19.11.2024 21:50:59]: RECEIVED: {"code":0,"publicKey":{},"modulus":"5ChBfwg9QA44ZYNip137i/bvHbB0H25f4KmRJ9qmW1yGMdtetRB1ASfLVOJabblmMmAZEieBb78kZBkuOvM0euXVCaHCWVuoNCC9MhwIGfVgK3tknfSzZguJ755AYvTRa2OsNBplHR1AM0Hw7MolAHnHglkfpBe5M9xkvA\u002Bo0f6ujgINCeXTqHNywEdksmEK/qGhJyLcwp/x3qHgAd5Arb1D\u002B37YE1LGbCZ2eycTVhGQHnUQuiDPu4b5M9UUA3oXUwcgF5Cn6BWcVnlatyvx6gbJXrYe3h7lIruf2JO99o9iWN3HhkeskhC\u002B0bJ70C5vwQAbZyYV8NiBXfL3xRRtjKEf6m6ynVa/HlE4q4qd0cZXuPx7MVKDwARqrVG7OlXuSqT7GnLpTzm46ctaGJeSzsc6dqEa9cgqCaSwuko8zk87kL\u002BXr3oihzGjusvC7nVcr0QWQzt7Ee5ZNKERihOCxuze80RYzR7EFdWZ6OY9YNvtp7EudFQXQ8RB5p/pHa/WjTH4SCjtsYMCYWm53/oZj6cewdmHfWpDyY4mLG\u002BV3iIDQOJSxkT\u002BYXn2wTKWiDhTdkYwgB5KNWfVfcF\u002B4Z33d8d5n3IgjiX6SHDmeEl/I7xbCBLTUSufvN5FZiqCnzK3hk5jhkp494/J4kOUPWreHD3\u002BRFBekhQ3gqcKVNULXrE=","exponent":"AQAB"}
+[24.11.2024 13:51:12]: [RECEIVED]: {"code":1,"publicKey":{},"modulus":"rYNyKxtj\u002BtALsTXI4zelJtQisRNgjuJdrn\u002BSL70T5aNfAUt0zS73SgzX/wZ3GpEhdaFOlRxEAiKmnGCetoyoNh3KMiAA/tpSK4T3FPko5wKGZLSxrbD44c6ETCOVsw3hI69I30cfSUpklyDUasgZCZZVy3QKKZSUQZwbNwEA\u002B4mIrpuUsZCL7ktNkDPqWfcUJHnQ7gK\u002BDqYo/DjkdHEWi/b6EVAmOd1K5MuV39ckhKFXB27QKw0Za35NF2eh4xyhQDOk3ngsc2mXWwBhH/CIr0ASQY7kyKSlptElwsKQllwQ/xiz4bzGTrgYsCXjMJsY/v4aDSvS6MI2hJDwPxXLyyzhfGO73yjnDVeXQEM2xMInv4c4s8Ck7ylN3xMCTIR0WTlVGA2nB95UXHP/WiqdYKnkLfZfDyKGdw\u002Bdmv0UJUnQih\u002BfuGYU5x0qKcjkWb3/sZKIrY5tAa9lGwuTsL9QiDQdtS4QwbFgoNYVmKXQomKqG7yUz0AX\u002Byv4z9cPbVHc/NMELnAPDJgOts8Pu\u002Bn5hXhxbkukGaj0A1V0\u002BmD2wTZNHazpNBpJSfDwdyXK/3HEpamamIovzv9Xy9wlAIivP6WWBQNdL\u002B9MibiHNvHIlLAbkrVR\u002BW67VvPC2idOEbbP0EtraBs8Q6ilW/SK5SEXXOf6uSjPFqTY80bv\u002BuPQzZE=","exponent":"AQAB"}
 
-[19.11.2024 21:50:59]: RECEIVED: Received opCode ReceiveRSA
+[24.11.2024 13:51:12]: [RECEIVED]: Received opCode ReceiveRSA
 
-[19.11.2024 21:50:59]: Sending aes
+[24.11.2024 13:51:12]: Sending aes
 
-[19.11.2024 21:50:59]: SENDING(RSA): {"code":1,"key":"mtQs0pkukKp3lSC6NjfNaKOzccAFKxmFeW\u002BF1Aean2A=","iv":"VYFJ8Hhd8NlVCrWtI/9e9g=="}
+[24.11.2024 13:51:12]: [SENDING(RSA)]: {"code":2,"key":"IjmNtn6zcnO0iI2ViNPetb/o7HC3VpxL5AsK\u002BEp8DOY=","iv":"5s/6hIL59Agy\u002BemFSgeJXQ=="}
 
-[19.11.2024 21:50:59]: RECEIVED: The received payload is 512 bytes long
+[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 512 bytes long
 
-[19.11.2024 21:50:59]: RECEIVED: {"code":1,"key":"mtQs0pkukKp3lSC6NjfNaKOzccAFKxmFeW\u002BF1Aean2A=","iv":"VYFJ8Hhd8NlVCrWtI/9e9g=="}
+[24.11.2024 13:51:12]: [RECEIVED]: {"code":2,"key":"IjmNtn6zcnO0iI2ViNPetb/o7HC3VpxL5AsK\u002BEp8DOY=","iv":"5s/6hIL59Agy\u002BemFSgeJXQ=="}
 
-[19.11.2024 21:50:59]: Received the aes from the client
+[24.11.2024 13:51:12]: Received the aes from the client
 
-[19.11.2024 21:50:59]: SENDING(Aes): {"code":2}
+[24.11.2024 13:51:12]: [SENDING(Aes)]: {"code":3}
 
-[19.11.2024 21:50:59]: RECEIVED: The received payload is 16 bytes long
+[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 16 bytes long
 
-[19.11.2024 21:50:59]: RECEIVED: {"code":2}
+[24.11.2024 13:51:13]: [RECEIVED]: {"code":3}
 
-[19.11.2024 21:50:59]: RECEIVED: Received opCode ServerReadyToReceive
+[24.11.2024 13:51:13]: [RECEIVED]: Received opCode ServerReadyToReceive
 
-[19.11.2024 21:51:06]: ERROR in file Server.cs, in MoveNext(), at line: 57, at column: 21
-[19.11.2024 21:51:06]: ERROR: An internal WebSocket error occurred. Please see the innerException, if present, for more details. 
+[24.11.2024 13:51:13]: [SENDING(Aes)]: {"code":8,"email":"Cristianocx7@gmail.com","password":"Cristiano"}
 
-[19.11.2024 21:51:06]: Lost the connection with a client
+[24.11.2024 13:51:13]: [RECEIVED]: The received payload is 80 bytes long
+
+[24.11.2024 13:51:13]: [RECEIVED]: {"code":8,"email":"Cristianocx7@gmail.com","password":"Cristiano"}
+
+[24.11.2024 13:51:13]: [SENDING(Aes)]: {"code":9,"successful":true,"user":{}}
+
+[24.11.2024 13:51:13]: [RECEIVED]: The received payload is 48 bytes long
+
+[24.11.2024 13:51:13]: [RECEIVED]: {"code":9,"successful":true,"user":{}}
+
+[24.11.2024 13:51:13]: [RECEIVED]: Received opCode ResponseToLogin
+
+[24.11.2024 13:51:19]: ERROR in file Server.cs, in MoveNext(), at line: 57, at column: 21
+[24.11.2024 13:51:19]: ERROR: An internal WebSocket error occurred. Please see the innerException, if present, for more details. 
+
+[24.11.2024 13:51:19]: Lost the connection with a client
 
