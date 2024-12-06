@@ -1,53 +1,25 @@
-[24.11.2024 13:51:12]: Starting!
+[30.11.2024 09:37:28]: Starting the Server.
 
-[24.11.2024 13:51:12]: Accepting a client
+[30.11.2024 09:37:28]: ERROR in file Client.cs, in MoveNext(), at line: 27, at column: 17
+[30.11.2024 09:37:28]: ERROR: Unable to connect to the remote server
 
-[24.11.2024 13:51:12]: Sending the public key (RSA) to the client
+[30.11.2024 09:37:28]: Retrying in 3 seconds
 
-[24.11.2024 13:51:12]: [SENDING(None)]: {"code":1,"publicKey":{},"modulus":"rYNyKxtj\u002BtALsTXI4zelJtQisRNgjuJdrn\u002BSL70T5aNfAUt0zS73SgzX/wZ3GpEhdaFOlRxEAiKmnGCetoyoNh3KMiAA/tpSK4T3FPko5wKGZLSxrbD44c6ETCOVsw3hI69I30cfSUpklyDUasgZCZZVy3QKKZSUQZwbNwEA\u002B4mIrpuUsZCL7ktNkDPqWfcUJHnQ7gK\u002BDqYo/DjkdHEWi/b6EVAmOd1K5MuV39ckhKFXB27QKw0Za35NF2eh4xyhQDOk3ngsc2mXWwBhH/CIr0ASQY7kyKSlptElwsKQllwQ/xiz4bzGTrgYsCXjMJsY/v4aDSvS6MI2hJDwPxXLyyzhfGO73yjnDVeXQEM2xMInv4c4s8Ck7ylN3xMCTIR0WTlVGA2nB95UXHP/WiqdYKnkLfZfDyKGdw\u002Bdmv0UJUnQih\u002BfuGYU5x0qKcjkWb3/sZKIrY5tAa9lGwuTsL9QiDQdtS4QwbFgoNYVmKXQomKqG7yUz0AX\u002Byv4z9cPbVHc/NMELnAPDJgOts8Pu\u002Bn5hXhxbkukGaj0A1V0\u002BmD2wTZNHazpNBpJSfDwdyXK/3HEpamamIovzv9Xy9wlAIivP6WWBQNdL\u002B9MibiHNvHIlLAbkrVR\u002BW67VvPC2idOEbbP0EtraBs8Q6ilW/SK5SEXXOf6uSjPFqTY80bv\u002BuPQzZE=","exponent":"AQAB"}
+[30.11.2024 09:37:31]: ERROR in file Client.cs, in MoveNext(), at line: 27, at column: 17
+[30.11.2024 09:37:31]: ERROR: Cannot access a disposed object.
+Object name: 'System.Net.WebSockets.ClientWebSocket'.
 
-[24.11.2024 13:51:12]: Connected successfully to the server!
+[30.11.2024 09:37:31]: Retrying in 3 seconds
 
-[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 636 bytes long
+[30.11.2024 09:37:34]: ERROR in file Client.cs, in MoveNext(), at line: 27, at column: 17
+[30.11.2024 09:37:34]: ERROR: Cannot access a disposed object.
+Object name: 'System.Net.WebSockets.ClientWebSocket'.
 
-[24.11.2024 13:51:12]: [RECEIVED]: {"code":1,"publicKey":{},"modulus":"rYNyKxtj\u002BtALsTXI4zelJtQisRNgjuJdrn\u002BSL70T5aNfAUt0zS73SgzX/wZ3GpEhdaFOlRxEAiKmnGCetoyoNh3KMiAA/tpSK4T3FPko5wKGZLSxrbD44c6ETCOVsw3hI69I30cfSUpklyDUasgZCZZVy3QKKZSUQZwbNwEA\u002B4mIrpuUsZCL7ktNkDPqWfcUJHnQ7gK\u002BDqYo/DjkdHEWi/b6EVAmOd1K5MuV39ckhKFXB27QKw0Za35NF2eh4xyhQDOk3ngsc2mXWwBhH/CIr0ASQY7kyKSlptElwsKQllwQ/xiz4bzGTrgYsCXjMJsY/v4aDSvS6MI2hJDwPxXLyyzhfGO73yjnDVeXQEM2xMInv4c4s8Ck7ylN3xMCTIR0WTlVGA2nB95UXHP/WiqdYKnkLfZfDyKGdw\u002Bdmv0UJUnQih\u002BfuGYU5x0qKcjkWb3/sZKIrY5tAa9lGwuTsL9QiDQdtS4QwbFgoNYVmKXQomKqG7yUz0AX\u002Byv4z9cPbVHc/NMELnAPDJgOts8Pu\u002Bn5hXhxbkukGaj0A1V0\u002BmD2wTZNHazpNBpJSfDwdyXK/3HEpamamIovzv9Xy9wlAIivP6WWBQNdL\u002B9MibiHNvHIlLAbkrVR\u002BW67VvPC2idOEbbP0EtraBs8Q6ilW/SK5SEXXOf6uSjPFqTY80bv\u002BuPQzZE=","exponent":"AQAB"}
+[30.11.2024 09:37:34]: Retrying in 3 seconds
 
-[24.11.2024 13:51:12]: [RECEIVED]: Received opCode ReceiveRSA
+[30.11.2024 09:37:37]: ERROR in file Client.cs, in MoveNext(), at line: 27, at column: 17
+[30.11.2024 09:37:37]: ERROR: Cannot access a disposed object.
+Object name: 'System.Net.WebSockets.ClientWebSocket'.
 
-[24.11.2024 13:51:12]: Sending aes
-
-[24.11.2024 13:51:12]: [SENDING(RSA)]: {"code":2,"key":"IjmNtn6zcnO0iI2ViNPetb/o7HC3VpxL5AsK\u002BEp8DOY=","iv":"5s/6hIL59Agy\u002BemFSgeJXQ=="}
-
-[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 512 bytes long
-
-[24.11.2024 13:51:12]: [RECEIVED]: {"code":2,"key":"IjmNtn6zcnO0iI2ViNPetb/o7HC3VpxL5AsK\u002BEp8DOY=","iv":"5s/6hIL59Agy\u002BemFSgeJXQ=="}
-
-[24.11.2024 13:51:12]: Received the aes from the client
-
-[24.11.2024 13:51:12]: [SENDING(Aes)]: {"code":3}
-
-[24.11.2024 13:51:12]: [RECEIVED]: The received payload is 16 bytes long
-
-[24.11.2024 13:51:13]: [RECEIVED]: {"code":3}
-
-[24.11.2024 13:51:13]: [RECEIVED]: Received opCode ServerReadyToReceive
-
-[24.11.2024 13:51:13]: [SENDING(Aes)]: {"code":8,"email":"Cristianocx7@gmail.com","password":"Cristiano"}
-
-[24.11.2024 13:51:13]: [RECEIVED]: The received payload is 80 bytes long
-
-[24.11.2024 13:51:13]: [RECEIVED]: {"code":8,"email":"Cristianocx7@gmail.com","password":"Cristiano"}
-
-[24.11.2024 13:51:13]: [SENDING(Aes)]: {"code":9,"successful":true,"user":{}}
-
-[24.11.2024 13:51:13]: [RECEIVED]: The received payload is 48 bytes long
-
-[24.11.2024 13:51:13]: [RECEIVED]: {"code":9,"successful":true,"user":{}}
-
-[24.11.2024 13:51:13]: [RECEIVED]: Received opCode ResponseToLogin
-
-[24.11.2024 13:51:19]: ERROR in file Server.cs, in MoveNext(), at line: 57, at column: 21
-[24.11.2024 13:51:19]: ERROR: An internal WebSocket error occurred. Please see the innerException, if present, for more details. 
-
-[24.11.2024 13:51:19]: Lost the connection with a client
+[30.11.2024 09:37:37]: Retrying in 3 seconds
 

@@ -118,7 +118,9 @@ namespace ServerMessengerHttp
             {
                 code = OpCode.ResponseToLogin,
                 successful,
-                user,
+                profilPic = Convert.ToBase64String(user.ProfilPic),
+                username = user.Username,
+                id = user.Id,
             };
             var jsonString = JsonSerializer.Serialize(paylaod);
             await Server.SendPayloadAsync(client, jsonString);
